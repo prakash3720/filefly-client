@@ -51,6 +51,8 @@
     padding: 0.5rem;
     background-color: #0c0c0d;
     border-radius: 15px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }

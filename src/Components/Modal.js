@@ -1,5 +1,4 @@
 import React from 'react'
-import $ from 'jquery'
 import './Modal.css'
 import axios from 'axios'
 

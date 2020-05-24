@@ -12,7 +12,8 @@ class ShareFile extends React.Component{
         this.state={
             dispArr:[],
             files:[],
-            fileSize:0
+            fileSize:0,
+            id:''
         }
         this.handleFiles=this.handleFiles.bind(this)
         this.upload=this.upload.bind(this)
@@ -42,6 +43,10 @@ class ShareFile extends React.Component{
         })
     }
 
+    // copyUrl(){
+
+    // }
+
     upload(){
         if(this.state.files.length){
             document.getElementById('upload').classList.add('d-none')
@@ -60,7 +65,6 @@ class ShareFile extends React.Component{
                     }
                 }
                 axios.post('https://filefly-download.herokuapp.com/upload/new',formData,config).then(res=>{
-                    console.log(res.data)
                     this.setState({
                         files:[],
                         dispArr:[],
@@ -70,6 +74,7 @@ class ShareFile extends React.Component{
                     document.getElementById('upload').classList.remove('d-none')
                     document.getElementById('bar').style.width="0%"
                     document.getElementById('bar').innerHTML="0%"
+                    this.setState({id:res.data.id})
                     this.props.uploadCallback({success:1,id:res.data.id})
                 })
                 .catch(err=>{
@@ -102,6 +107,7 @@ class ShareFile extends React.Component{
                     <p>No. of Files: {this.state.files.length?this.state.files.length:0}</p>
                     <p>Total Size: {this.state.fileSize}MB</p>
                 </div>
+                {/* <button className="btn btn-primary btn-sm mb-1" onClick={copyUrl}>Copy URL <i class="far fa-copy"></i></button> */}
                 <button id="upload" className="btn btn-primary" onClick={this.upload}>Upload</button>
                 <div className="progress" id="progress">
                     <div id="bar" className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width: '0%'}}></div>
