@@ -43,10 +43,6 @@ class ShareFile extends React.Component{
         })
     }
 
-    // copyUrl(){
-
-    // }
-
     upload(){
         if(this.state.files.length){
             document.getElementById('upload').classList.add('d-none')
@@ -59,13 +55,12 @@ class ShareFile extends React.Component{
                 let formData = new FormData();
                 formData.append('file', content);
                 let config={
-                    headers: {'Access-Control-Allow-Origin': '*', crossdomain: true, "Content-Type": "application/x-www-form-urlencoded"},
                     onUploadProgress:(progressEvent)=>{
                         document.getElementById('bar').style.width=`${Math.round( (progressEvent.loaded * 100) / progressEvent.total )}%`
                         document.getElementById('bar').innerHTML=`${Math.round( (progressEvent.loaded * 100) / progressEvent.total )}%`
                     }
                 }
-                axios.post('https://filefly-download.herokuapp.com/upload/new',formData,config).then(res=>{
+                axios.post('http://localhost:5000/upload/new',formData,config).then(res=>{
                     this.setState({
                         files:[],
                         dispArr:[],

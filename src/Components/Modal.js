@@ -9,7 +9,7 @@ function Modal(props){
     }
 
     let sendMail=()=>{
-        axios.post('https://filefly-download.herokuapp.com/mail/send',{id:props.id,email:document.getElementById('email').value}).then(res=>{
+        axios.post('http://localhost:5000/mail/send',{id:props.id,email:document.getElementById('email').value}).then(res=>{
             props.modalCallback()
         })
         .catch(err=>console.log(err))
