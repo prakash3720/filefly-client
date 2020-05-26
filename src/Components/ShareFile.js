@@ -59,7 +59,7 @@ class ShareFile extends React.Component{
                 let formData = new FormData();
                 formData.append('file', content);
                 let config={
-                    headers: {'Access-Control-Allow-Origin': '*', crossdomain: true},
+                    headers: {'Access-Control-Allow-Origin': '*', crossdomain: true, "Content-Type": "application/x-www-form-urlencoded"},
                     onUploadProgress:(progressEvent)=>{
                         document.getElementById('bar').style.width=`${Math.round( (progressEvent.loaded * 100) / progressEvent.total )}%`
                         document.getElementById('bar').innerHTML=`${Math.round( (progressEvent.loaded * 100) / progressEvent.total )}%`
