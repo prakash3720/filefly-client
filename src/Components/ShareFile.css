@@ -6,13 +6,17 @@
     flex-direction: column;
 }
 
+#email{
+    width: 90%;
+}
+
 .btn{
     width: 90%;
 }
 
 .listView{
     width: 90%;
-    height: 370px;
+    height: 330px;
     background-color: #000;
     position: relative;
 }
@@ -98,6 +102,9 @@
         position: relative;
     }
     .btn{
+        width: 98%;
+    }
+    #email{
         width: 98%;
     }
 }

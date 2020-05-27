@@ -44,7 +44,7 @@ class ShareFile extends React.Component{
     }
 
     upload(){
-        if(this.state.files.length){
+        if(this.state.files.length && document.getElementById('email').value){
             document.getElementById('upload').classList.add('d-none')
             document.getElementById('progress').classList.remove('d-none')
             let zip = new JSZip();
@@ -60,7 +60,7 @@ class ShareFile extends React.Component{
                         document.getElementById('bar').innerHTML=`${Math.round( (progressEvent.loaded * 100) / progressEvent.total )}%`
                     }
                 }
-                axios.post('http://localhost:5000/upload/new',formData,config).then(res=>{
+                axios.post(`https://filefly-send.herokuapp.com/upload/new/${document.getElementById('email').value}`,formData,config).then(res=>{
                     this.setState({
                         files:[],
                         dispArr:[],
@@ -70,8 +70,9 @@ class ShareFile extends React.Component{
                     document.getElementById('upload').classList.remove('d-none')
                     document.getElementById('bar').style.width="0%"
                     document.getElementById('bar').innerHTML="0%"
+                    document.getElementById('email').value=""
                     this.setState({id:res.data.id})
-                    this.props.uploadCallback({success:1,id:res.data.id})
+                    this.props.uploadCallback({success:1})
                 })
                 .catch(err=>{
                     console.log(err)
@@ -79,7 +80,7 @@ class ShareFile extends React.Component{
                     document.getElementById('upload').classList.remove('d-none')
                     document.getElementById('bar').style.width="0%"
                     document.getElementById('bar').innerHTML="0%"
-                    this.props.uploadCallback({success:0})
+                    this.props.uploadCallback({success:1})
                 })
             })
         }else{
@@ -103,7 +104,7 @@ class ShareFile extends React.Component{
                     <p>No. of Files: {this.state.files.length?this.state.files.length:0}</p>
                     <p>Total Size: {this.state.fileSize}MB</p>
                 </div>
-                {/* <button className="btn btn-primary btn-sm mb-1" onClick={copyUrl}>Copy URL <i class="far fa-copy"></i></button> */}
+                <input type="email" className="form-control mb-3" id="email" aria-describedby="emailHelp" placeholder="Email ID"></input>
                 <button id="upload" className="btn btn-primary" onClick={this.upload}>Upload</button>
                 <div className="progress" id="progress">
                     <div id="bar" className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{width: '0%'}}></div>

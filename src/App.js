@@ -3,20 +3,16 @@ import './App.css';
 import Navbar from './Components/Navbar'
 import share from './static/share.svg'
 import ShareFile from './Components/ShareFile'
-import Modal from './Components/Modal'
 
 class App extends React.Component{
 
   constructor(){
     super()
     this.state={
-      alertMsg:'',
-      modal:0,
-      id:''
+      alertMsg:''
     }
     this.callBack=this.callBack.bind(this)
     this.updateAlert=this.updateAlert.bind(this)
-    this.modalCall=this.modalCall.bind(this)
   }
 
   callBack(obj){
@@ -24,10 +20,10 @@ class App extends React.Component{
       this.setState({alertMsg:'Try again in 5 seconds'})
     }
     else if(obj.success===1){
-      this.setState({alertMsg:'Successfully uploaded',modal:1,id:obj.id})
+      this.setState({alertMsg:'Successfully uploaded'})
     }
     else if(obj.success===2){
-      this.setState({alertMsg:'Please select a file to upload'})
+      this.setState({alertMsg:'Please fill all the fields'})
     }
   }
 
@@ -35,15 +31,10 @@ class App extends React.Component{
     this.setState({alertMsg:''})
   }
 
-  modalCall(){
-    this.setState({modal:0})
-  }
-
   render(){
     return (
       <div className="App">
         <Navbar></Navbar>
-        <Modal id={this.state.id} openModal={this.state.modal} modalCallback={this.modalCall}></Modal>
         {this.state.alertMsg?<div className="alert alert-primary alert-dismissible fade show" role="alert">
           {this.state.alertMsg}
           <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.updateAlert}>
