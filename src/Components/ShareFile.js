@@ -64,22 +64,29 @@ class ShareFile extends React.Component{
                     this.setState({
                         files:[],
                         dispArr:[],
-                        fileSize:0
+                        fileSize:0,
+                        id:res.data.id
                     })
                     document.querySelector('#progress').classList.add('d-none')
                     document.getElementById('upload').classList.remove('d-none')
                     document.getElementById('bar').style.width="0%"
                     document.getElementById('bar').innerHTML="0%"
                     document.getElementById('email').value=""
-                    this.setState({id:res.data.id})
+                    document.getElementById("file").value = "";
                     this.props.uploadCallback({success:1})
                 })
                 .catch(err=>{
                     console.log(err)
+                    this.setState({
+                        files:[],
+                        dispArr:[],
+                        fileSize:0
+                    })
                     document.querySelector('#progress').classList.add('d-none')
                     document.getElementById('upload').classList.remove('d-none')
                     document.getElementById('bar').style.width="0%"
                     document.getElementById('bar').innerHTML="0%"
+                    document.getElementById("file").value = "";
                     this.props.uploadCallback({success:1})
                 })
             })
